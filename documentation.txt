@@ -1,0 +1,44 @@
+Documentation
+
+1. Description
+This is Python/Flask web-application. It is a self-replicating GitHub repository.
+It means that if you follow the link of this application the application creates a repository in your GitHub
+account that includes files of this web-application.
+
+2. Structure
+replicator/
+    static/
+        css/
+            style.css
+        img/
+            bg.jpg
+    templates/
+        404.html
+        documentation.html
+    .gitignore
+    application.py
+    documentation.txt
+    README.md
+    requirements.txt
+    settings.py
+
+
+3. Python code
+"application.py" is the main file that consists of four functions:
+    - index() function creates an url to authorize in GitHub using OAuth2Session class from requests-oauthlib
+      library (https://pypi.org/project/requests-oauthlib/) and after authorization in GitHub return redirect
+      to the authorization url that gets "authorization state" and redirects to callback url.
+
+    - callback() is a function for retrieving a GitHub access token, and creating a new repository.
+      The user has been redirected back from the provider to a registered callback URL.
+      Callback URL includes "authorization state". It uses to obtain an access token.
+      Next, the app creates a new repository using GitHub API.
+      After that, the app reads application files and decodes the files to base64 string format using base64 library.
+      Finally, the app adds application files using GitHub API.
+      requests library uses to send GET and PUT request.
+
+    - page_not_found() renders 404.html file if page does not found. (template was made by Colorlib (https://colorlib.com)).
+
+    - documentation() renders documentation.html (page with documentation).
+
+"settings.py" includes Client ID, Client secret from GitHub OAuth App and tuple of application files.
