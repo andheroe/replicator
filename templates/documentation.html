@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Replicator Documentation</title>
+	<style>
+	a:link, a:visited {
+    	color: blue;
+}
+		a.button {
+			background-color: #3855fa;
+			-moz-border-radius: 3px;
+			-webkit-border-radius: 3px;
+			border-radius: 3px;
+			color: #c5c5c5;
+			text-decoration: none;
+}
+
+    a.button:hover {
+        color: #c5c5c5;
+        background-color: #f35e5e;}
+	</style>
+</head>
+<body>
+	<div>
+		<div>
+			<h2>Documentation</h2>
+			<br/>
+			<h3>1. Description</h3>
+			This is <a href="http://flask.pocoo.org/docs/1.0/tutorial/">Python/Flask</a> web-application. It is a self-replicating GitHub repository.<br>
+				It means that if you follow the link of this application the application creates a repository in your GitHub account that includes files of this web-application.<br>
+			<br/>
+			<h3>2. Structure</h3>
+
+			replicatop/<br>
+			&nbsp&nbsp&nbsp&nbsp static/<br>
+			&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp css/<br>
+			&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp style.css<br>
+			&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp img/<br>
+			&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp bg.jpg<br>
+			&nbsp&nbsp&nbsp&nbsp templates/<br>
+			&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp 404.html<br>
+			&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp documentation.html<br>
+			&nbsp&nbsp&nbsp&nbsp .gitignore<br>
+			&nbsp&nbsp&nbsp&nbsp application.py<br>
+			&nbsp&nbsp&nbsp&nbsp documentation.txt<br>
+			&nbsp&nbsp&nbsp&nbsp README.md<br>
+			&nbsp&nbsp&nbsp&nbsp requirements.txt<br>
+			&nbsp&nbsp&nbsp&nbsp settings.py<br>
+
+			<h3>3. Python code</h3>
+			<p>"application.py" is the main file that consists of four functions:</p>
+			<ul>
+				<li>
+					index() function creates an url to authorize in GitHub using OAuth2Session class from
+					<a href="https://pypi.org/project/requests-oauthlib/" >requests-oauthlib</a>
+					library and after authorization in GitHub returns redirect to the authorization url that
+					gets "authorization state" and redirects to callback url.
+				</li>
+				<li>
+					callback() is a function for retrieving a GitHub access token, and creating a new repository.<br>
+					The user has been redirected back from the provider to a registered callback URL.<br>
+					Callback URL includes "authorization state". It uses to obtain an access token.<br>
+					Next, the app creates a new repository using <a href="https://developer.github.com/v3/repos/#create">GitHub API</a>.<br>
+					After that, the app reads application files and decodes its to base64 string format using base64 library.<br>
+					Finally, the app adds application files using <a href="https://developer.github.com/v3/repos/contents/#create-a-file">
+					GitHub API</a>.<br>
+					<a href="https://pypi.org/project/requests/">
+					requests library</a> uses to send GET and PUT request.<br>
+				</li>
+				<li>
+    				page_not_found() renders 404.html file if page does not found. (template was made by
+					<a href="https://colorlib.com">Colorlib</a>).
+				</li>
+				<li>
+    				documentation() renders documentation.html (page with documentation).
+				</li>
+			</ul>
+			<p>"settings.py" includes Client ID, Client secret from GitHub OAuth App and tuple of application files.</p>
+			<a href="/" class="button">
+				&nbsp &nbsp Try The Application &nbsp &nbsp
+			</a>
+		</div>
+	</div>
+</body>
+
+</html>
